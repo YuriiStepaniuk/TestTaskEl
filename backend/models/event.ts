@@ -7,6 +7,6 @@ const eventSchema = new mongoose.Schema({
   organizer: { type: String, required: true },
 });
 
-const EventFromList = mongoose.model('EventFromList', eventSchema);
+const EventFromList = mongoose.model('Event', eventSchema, 'Events');
 
 export default EventFromList;
