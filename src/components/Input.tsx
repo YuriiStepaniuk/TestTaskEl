@@ -1,22 +1,24 @@
-import { useRef } from 'react';
-
 const Input = ({
   inputTitle,
   title,
+  value,
+  onChange,
 }: {
   inputTitle: string;
   title: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
-  const ref = useRef<HTMLInputElement>(null);
   return (
-    <div className="m-4 flex flex-col justify-center items-start">
+    <div className="m-4 flex flex-col justify-center items-start w-full">
       <label htmlFor={inputTitle} className="mb-1">
         {title}
       </label>
       <input
         type="text"
-        ref={ref}
-        className="border-black border rounded-md p-2"
+        value={value}
+        onChange={onChange}
+        className="border-black border rounded-md p-2 w-3/4"
         placeholder={`${title}...`}
         required
       />

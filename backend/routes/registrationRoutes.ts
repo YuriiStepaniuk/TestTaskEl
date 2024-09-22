@@ -7,11 +7,11 @@ const router = express.Router();
 router.use(express.json());
 
 router.post('/register', async (req: Request, res: Response) => {
-  const { fullName, email, dateOfBirth, selectedOption, eventId } = req.body;
+  const { fullname, email, dateOfBirth, selectedOption, eventId } = req.body;
 
   try {
     const registration = new Registration({
-      fullName,
+      fullname,
       email,
       dateOfBirth,
       selectedOption,

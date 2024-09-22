@@ -1,12 +1,15 @@
 import { useState } from 'react';
 
-import Button from '../components/Button';
 import Input from '../components/Input';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const RegistrationPage = () => {
+  const [fullname, setFullname] = useState('');
+  const [email, setEmail] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const { id } = useParams();
+  const navigation = useNavigate();
 
   const handleOptionChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -14,9 +17,19 @@ const RegistrationPage = () => {
 
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formattedDate = new Date(
+      dateOfBirth.split('.').reverse().join('-')
+    ).toISOString();
 
-    const formData = new FormData(e.currentTarget);
-    const formObject = Object.fromEntries(formData.entries());
+    const formObject = {
+      fullname,
+      email,
+      dateOfBirth: formattedDate,
+      eventId: id,
+      selectedOption,
+    };
+
+    console.log(formObject);
 
     try {
       const response = await fetch(`http://localhost:3001/api/register`, {
@@ -29,6 +42,7 @@ const RegistrationPage = () => {
 
       const result = await response.json();
       console.log(result);
+      navigation('/events');
     } catch (error) {
       console.error('Error submitting the form:', error);
     }
@@ -36,19 +50,41 @@ const RegistrationPage = () => {
 
   return (
     <div className="flex flex-col items-start m-4">
-      <h1>Event registration</h1>
+      <h1 className="text-2xl">Event registration</h1>
       <form
         action="http://localhost:3001/api/register"
         method="POST"
         onSubmit={handleSubmitForm}
+        className="flex flex-col items-start justify-start"
       >
         <input type="hidden" name="eventId" value={id} />{' '}
         {/* Hidden input to send event ID */}
-        <Input inputTitle="fullname" title="Full Name" />
-        <Input inputTitle="email" title="Email" />
-        <Input inputTitle="dateOfBirth" title="Date of birth" />
-        <p>Where did you hear about us ?</p>
-        <div className="flex">
+        <Input
+          inputTitle="fullname"
+          title="Full Name"
+          value={fullname}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setFullname(e.target.value)
+          }
+        />
+        <Input
+          inputTitle="email"
+          title="Email"
+          value={email}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
+        />
+        <Input
+          inputTitle="dateOfBirth"
+          title="Date of birth"
+          value={dateOfBirth}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setDateOfBirth(e.target.value)
+          }
+        />
+        <p className="my-2 ml-4">Where did you hear about us ?</p>
+        <div className="flex gap-2 ml-4">
           <label>
             <input
               type="radio"
@@ -82,7 +118,9 @@ const RegistrationPage = () => {
             Found myself
           </label>
         </div>
-        <button type="submit">submit</button>
+        <button type="submit" className="text-blue-500 self-center my-2">
+          submit
+        </button>
       </form>
     </div>
   );

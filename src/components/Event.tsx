@@ -14,7 +14,7 @@ const Event: React.FC<IEvent> = ({
       <p className="mb-8">{description}</p>
       <div className="flex justify-between items-center">
         <Button btnText="Register" navigateTo={`register/${_id}`} />
-        <Button btnText="View" navigateTo="view" />
+        <Button btnText="View" navigateTo={`view/${_id}`} />
       </div>
     </div>
   );

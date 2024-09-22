@@ -13,13 +13,14 @@ const EventsListPage = () => {
     const fetchEvents = async (page: number) => {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/events?page=${page}&limit=10`
+          `http://localhost:3001/api/events?page=${page}&limit=12`
         );
         if (!response.ok) {
           throw new Error('Network response was not OK');
         }
         const allData = await response.json();
         const data = allData.events;
+        console.log(allData);
 
         setEvents(data);
         setTotalPages(allData.totalPages);
@@ -52,7 +53,14 @@ const EventsListPage = () => {
   console.log(events);
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-start">
+      <div className="w-full flex justify-between items-center">
+        <h1 className="text-2xl m-4">Events</h1>
+        <div>
+          <p>Sort by: </p>
+        </div>
+      </div>
+
       <div className="flex flex-wrap">
         {events.map((event) => {
           return (
@@ -67,7 +75,7 @@ const EventsListPage = () => {
           );
         })}
       </div>
-      <div className="flex justify-center items-center mt-2 mb-4">
+      <div className="flex justify-center items-center self-center mt-2 mb-4">
         <button
           onClick={handlePrevPage}
           disabled={currentPage === 1}

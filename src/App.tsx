@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     element: <RegistrationPage />,
   },
   {
-    path: '/view',
+    path: '/view/:id',
     element: <ViewPage />,
   },
 ]);
@@ -30,7 +30,6 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className="m-2 border-2 border-black">
-      <h1 className="text-2xl m-4 bold">Events</h1>
       <RouterProvider router={router} />
     </div>
   );

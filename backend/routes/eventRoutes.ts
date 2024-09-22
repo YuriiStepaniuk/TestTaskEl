@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import EventFromList from '../models/event'; // Adjust the path to your Event model
+import EventFromList from '../models/event';
 
 const router = express.Router();
 
@@ -19,6 +19,7 @@ router.get('/events', async (req: Request, res: Response) => {
       currentPage: page,
     });
   } catch (error) {
+    console.error('Error fetching events:', error); // Debug: Log error
     res.status(500).json({ error: 'Server error' });
   }
 });
