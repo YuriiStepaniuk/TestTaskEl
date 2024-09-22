@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Event from '../components/Event';
 import IEvent from '../types/IEvent';
 
@@ -6,6 +6,7 @@ const EventsListPage = () => {
   const [events, setEvents] = useState<IEvent[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [sortBy, setSortBy] = useState('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -13,7 +14,7 @@ const EventsListPage = () => {
     const fetchEvents = async (page: number) => {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/events?page=${page}&limit=12`
+          `http://localhost:3001/api/events?page=${page}&limit=12&sortBy=${sortBy}`
         );
         if (!response.ok) {
           throw new Error('Network response was not OK');
@@ -56,8 +57,20 @@ const EventsListPage = () => {
     <div className="flex flex-col justify-center items-start">
       <div className="w-full flex justify-between items-center">
         <h1 className="text-2xl m-4">Events</h1>
-        <div>
-          <p>Sort by: </p>
+        <div className="w-48 flex items-center">
+          <p className="mr-4">Sort by: </p>
+          <select
+            className="border border-black p-1"
+            name="sort"
+            id="sort"
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setSortBy(e.target.value)
+            }
+          >
+            <option value="title">Title</option>
+            <option value="eventDate">Event Date</option>
+            <option value="organizer">Organizer</option>
+          </select>
         </div>
       </div>
 

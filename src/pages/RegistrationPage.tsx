@@ -8,6 +8,7 @@ const RegistrationPage = () => {
   const [email, setEmail] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const { id } = useParams();
   const navigation = useNavigate();
 
@@ -62,26 +63,32 @@ const RegistrationPage = () => {
         <Input
           inputTitle="fullname"
           title="Full Name"
+          inputType="text"
           value={fullname}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setFullname(e.target.value)
           }
+          pattern="^[A-Z][a-z]+ [A-Z][a-z]+$"
+          err="Please enter name in format 'John Doe'"
         />
         <Input
           inputTitle="email"
+          inputType="email"
           title="Email"
           value={email}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
           }
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          err="Please enter valid email"
         />
         <Input
           inputTitle="dateOfBirth"
+          inputType="date"
           title="Date of birth"
           value={dateOfBirth}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setDateOfBirth(e.target.value)
-          }
+          onChange={(e) => setDateOfBirth(e.target.value)}
+          err="Please enter valid date"
         />
         <p className="my-2 ml-4">Where did you hear about us ?</p>
         <div className="flex gap-2 ml-4">

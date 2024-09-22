@@ -7,6 +7,7 @@ import IParticipant from '../types/IParticipant';
 const ViewPage = () => {
   const [participants, setParticipants] = useState<IParticipant[]>([]);
   const [eventName, setEventName] = useState<string>('');
+  const [searchName, setSeachName] = useState('');
   const { id } = useParams();
 
   useEffect(() => {
@@ -41,13 +42,32 @@ const ViewPage = () => {
     fetchEventName();
   }, [id]);
 
+  const filteredParticipants = participants.filter((participant) =>
+    participant.fullname.toLowerCase().includes(searchName.toLowerCase())
+  );
+
   return (
     <div className="m-4 gap-4 flex items-start justify-center flex-wrap flex-col">
-      <h1>Participants</h1>
+      <div className="w-3/4 flex justify-between items-center">
+        <h1 className="text-2xl">Participants</h1>
+        <div className="flex items-center justify-center">
+          <p className="mr-2">Type here to search for exact person: </p>
+          <input
+            className="border border-black p-1"
+            type="text"
+            placeholder="John Doe..."
+            value={searchName}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSeachName(e.target.value)
+            }
+          />
+        </div>
+      </div>
+
       <h1>{eventName}</h1>
       <div className="flex gap-4">
-        {participants.length > 0 ? (
-          participants.map((participant, id) => (
+        {filteredParticipants.length > 0 ? (
+          filteredParticipants.map((participant, id) => (
             <Participant
               key={id}
               name={participant.fullname}
