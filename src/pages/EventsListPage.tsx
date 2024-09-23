@@ -37,7 +37,7 @@ const EventsListPage = () => {
     };
 
     fetchEvents(currentPage);
-  }, [currentPage]);
+  }, [currentPage, sortBy]);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -51,12 +51,16 @@ const EventsListPage = () => {
     }
   };
 
-  console.log(events);
+  let output;
+
+  if (loading) output = <h1>Loading...</h1>;
+  else if (error) output = <h1>Some error happened...</h1>;
 
   return (
     <div className="flex flex-col justify-center items-start">
       <div className="w-full flex justify-between items-center">
         <h1 className="text-2xl m-4">Events</h1>
+        {output}
         <div className="w-48 flex items-center">
           <p className="mr-4">Sort by: </p>
           <select

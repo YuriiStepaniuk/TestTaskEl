@@ -8,7 +8,7 @@ const RegistrationPage = () => {
   const [email, setEmail] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
-  const [error, setError] = useState<string | null>(null);
+
   const { id } = useParams();
   const navigation = useNavigate();
 
