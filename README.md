@@ -1,46 +1,79 @@
-# Getting Started with Create React App
+# Events Management Fullstack Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a fullstack project for managing events, including an events board, event registration, and participant viewing. The project covers both basic and intermediate levels of functionality.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Base Level
 
-### `npm start`
+- **Events Board Page**:
+  - Displays a paginated list of available events.
+  - Each event consists of:
+    - Title
+    - Description
+    - Event Date
+    - Organizer
+  - Events can be pre-populated manually or via a seed script.
+- **Event Registration Page**:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  - Clicking on “Register” redirects users to the event registration page.
+  - The registration form includes fields for:
+    - Full Name
+    - Email
+    - Date of Birth
+    - "Where did you hear about this event?"
+  - Form submissions are stored in the database.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Event Participants Page**:
+  - Clicking on “View” allows users to see a list of registered participants for an event.
 
-### `npm test`
+### Middle Level
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Everything from Base Level** plus:
+- **Events Board Page**:
 
-### `npm run build`
+  - Ability to sort events by:
+    - Title
+    - Event Date
+    - Organizer
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Event Registration Page**:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  - Added form validation for all fields (customized validity requirements).
+  - Integrated DatePicker for the Date of Birth input.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Event Participants Page**:
+  - Added search functionality to filter participants by:
+    - Full Name
+    - Email
 
-### `npm run eject`
+## Installation and Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YuriiStepaniuk/TestTaskEl.git
+   ```
+2. Install dependencies:
+   cd backend
+   npm install
+   cd ../
+   npm install
+3. Start the backend and frontend servers:
+   cd ../
+   npm start
+   cd ./backend
+   npx tsx app.ts
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Technologies Used
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Frontend:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- React
+- TypeScript
+- Tailwind CSS
 
-## Learn More
+### Backend:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Node.js
+- Express
+- MongoDB
